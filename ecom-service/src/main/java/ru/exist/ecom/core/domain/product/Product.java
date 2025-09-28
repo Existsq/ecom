@@ -2,6 +2,8 @@ package ru.exist.ecom.core.domain.product;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -10,6 +12,7 @@ import java.math.BigDecimal;
 import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
+import ru.exist.ecom.core.domain.enums.PaymentStatus;
 
 @Entity
 @Getter
@@ -20,6 +23,10 @@ public class Product {
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
   private UUID id;
+
+  @Column(nullable = false)
+  @Enumerated(EnumType.STRING)
+  private PaymentStatus status;
 
   private String name;
 
