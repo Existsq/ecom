@@ -13,15 +13,4 @@ public class PaymentMapper {
         product.getAmount(),
         product.getCreatedAt());
   }
-
-  public static Payment toEntity(PaymentDTO dto) {
-    Payment product = new Payment();
-    product.setId(dto.id());
-    product.setOrder(OrderMapper.toEntity(dto.order()));
-    product.setStatus(dto.status());
-    product.setAmount(dto.amount());
-    product.setCreatedAt(dto.createdAt());
-
-    return product;
-  }
 }
