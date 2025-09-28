@@ -25,6 +25,7 @@ public class PaymentService {
 
   @Transactional
   public PaymentDTO createPayment(UUID orderId, BigDecimal amount) {
+
     Order order =
         orderRepository
             .findById(orderId)
@@ -34,6 +35,7 @@ public class PaymentService {
     payment.setOrder(order);
     payment.setAmount(amount);
     payment.setStatus(PaymentStatus.PENDING);
+
 
     return PaymentMapper.toDto(paymentRepository.save(payment));
   }
