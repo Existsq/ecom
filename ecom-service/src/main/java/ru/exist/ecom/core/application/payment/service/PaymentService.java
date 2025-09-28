@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.exist.ecom.core.application.exception.OrderNotFoundException;
 import ru.exist.ecom.core.application.exception.PaymentNotFoundException;
+import ru.exist.ecom.core.application.payment.PaymentDTO;
+import ru.exist.ecom.core.application.payment.mapper.PaymentMapper;
 import ru.exist.ecom.core.domain.enums.OrderStatus;
 import ru.exist.ecom.core.domain.enums.PaymentStatus;
 import ru.exist.ecom.core.domain.order.Order;
@@ -22,7 +24,8 @@ public class PaymentService {
   private final OrderRepository orderRepository;
 
   @Transactional
-  public Payment createPayment(UUID orderId, BigDecimal amount) {
+  public PaymentDTO createPayment(UUID orderId, BigDecimal amount) {
+
     Order order =
         orderRepository
             .findById(orderId)
@@ -33,11 +36,12 @@ public class PaymentService {
     payment.setAmount(amount);
     payment.setStatus(PaymentStatus.PENDING);
 
-    return paymentRepository.save(payment);
+
+    return PaymentMapper.toDto(paymentRepository.save(payment));
   }
 
   @Transactional
-  public Payment completePayment(UUID paymentId) {
+  public PaymentDTO completePayment(UUID paymentId) {
     Payment payment =
         paymentRepository
             .findById(paymentId)
@@ -50,6 +54,6 @@ public class PaymentService {
     order.setStatus(OrderStatus.PAID);
     orderRepository.save(order);
 
-    return payment;
+    return PaymentMapper.toDto(payment);
   }
 }
