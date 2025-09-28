@@ -48,7 +48,6 @@ public class Order {
   @Column(name = "created_at", nullable = false, updatable = false)
   private LocalDateTime createdAt;
 
-  @Setter(AccessLevel.NONE)
   @Column(name = "idempotency_key", nullable = false, updatable = false)
   private UUID idempotencyKey;
 

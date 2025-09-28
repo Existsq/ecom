@@ -3,6 +3,8 @@ package ru.exist.ecom.core.domain.order;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -18,6 +20,7 @@ import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
 import ru.exist.ecom.core.domain.customer.Customer;
+import ru.exist.ecom.core.domain.enums.OrderDraftStatus;
 
 @Entity
 @Getter
@@ -28,6 +31,10 @@ public class OrderDraft {
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
   private UUID id;
+
+  @Column(nullable = false)
+  @Enumerated(EnumType.STRING)
+  private OrderDraftStatus status = OrderDraftStatus.ACTIVE;
 
   @ManyToOne
   @JoinColumn(name = "customer_id", nullable = false)
