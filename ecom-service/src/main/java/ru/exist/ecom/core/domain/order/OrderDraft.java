@@ -11,6 +11,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -37,6 +38,9 @@ public class OrderDraft {
 
   @OneToMany(mappedBy = "orderDraft", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<DraftItem> items;
+
+  @Column(nullable = false, precision = 19, scale = 2)
+  private BigDecimal total;
 
   @PrePersist
   protected void onCreate() {
